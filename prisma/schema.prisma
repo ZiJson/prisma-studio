@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_add {
+  AddID        Int       @id @default(autoincrement())
+  shopID       Int?
+  description  String?   @db.VarChar(20)
+  price        Int?
+  image        Bytes?    @db.Blob
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_menu {
+  menuID       Int       @id @default(autoincrement())
+  menuName     String?   @db.VarChar(20)
+  productIDs   String?   @db.VarChar(1000)
+  coda         Int?
+  startTime    DateTime? @db.DateTime(0)
+  endTime      DateTime? @db.DateTime(0)
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_product {
+  productID    Int       @id @default(autoincrement())
+  shopID       Int?
+  addIDs       String?   @db.VarChar(80)
+  productName  String?   @db.VarChar(20)
+  price        Int?
+  productType  Int?
+  category     String?   @db.VarChar(50)
+  image        Bytes?    @db.Blob
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_shop {
+  shopID       Int       @id @default(autoincrement())
+  shopName     String?   @db.VarChar(20)
+  phone        Int?
+  address      String?   @db.VarChar(20)
+  image        Bytes?    @db.Blob
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_totalorder {
+  totalOrderID Int       @id @default(autoincrement())
+  price        Int?
+  isClear      Int?
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_user {
+  userID     Int       @id @default(autoincrement())
+  account    String    @db.VarChar(50)
+  passWord   String    @db.VarChar(20)
+  userName   String?   @db.VarChar(20)
+  phone      Int?
+  image      Bytes?    @db.Blob
+  level      Int
+  createTime DateTime? @db.DateTime(0)
+  updateTime DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_userorder {
+  userOrderID  Int       @id @default(autoincrement())
+  userID       Int?
+  menuID       Int?
+  productID    Int?
+  addIDs       String?   @db.VarChar(80)
+  lastUpdateBy Int
+  createTime   DateTime? @db.DateTime(0)
+  updateTime   DateTime? @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model t_userrecord {
+  userRecordID    Int       @id @default(autoincrement())
+  userID          Int?
+  snackPrice      Int?
+  dinnerPrice     Int?
+  userActualPrice Int?
+  isPaid          Int?
+  lastUpdateBy    Int
+  createTime      DateTime? @db.DateTime(0)
+  updateTime      DateTime? @db.DateTime(0)
+}
